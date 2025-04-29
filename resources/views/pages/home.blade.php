@@ -1,30 +1,16 @@
 <x-layout.app>
     <section class="py-16 px-4 max-w-4xl mx-auto">
-       
+
         <div class="flex flex-wrap justify-center gap-3 mb-12">
-            <a href="#" class="px-4 py-2 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors">
-              All
+            <a href="/author"
+                class="px-4 py-2 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors">
+                Author
             </a>
-            <a href="#" class="px-4 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 hover:text-gray-900 transition-colors">
-              Marketing
+            <a href="/category"
+                class="px-4 py-2 rounded-full bg-rose-600 text-white font-medium hover:bg-rose-700 transition-colors">
+                Category
             </a>
-            <a href="#"" class="px-4 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 hover:text-gray-900 transition-colors">
-              Development
-            </a>
-            <a href="#"" class="px-4 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 hover:text-gray-900 transition-colors">
-              Design
-            </a>
-            <a href="#" class="px-4 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 hover:text-gray-900 transition-colors">
-              Business
-            </a>
-            <a href="#" class="px-4 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 hover:text-gray-900 transition-colors">
-              Technology
-            </a>
-          </div>
-
-
-
-
+        </div>
         <div class="flex flex-col gap-8">
             <!-- First Article -->
             <article class="flex flex-col md:flex-row gap-6 bg-white rounded-lg overflow-hidden shadow-sm">

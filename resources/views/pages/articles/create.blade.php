@@ -114,8 +114,9 @@
           <p class="text-lg text-gray-600">Share your knowledge with the world</p>
         </div> --}}
     
+        {{-- <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data"> --}}
        
-        <form class="bg-white rounded-lg shadow-sm p-8" method="POST" action="" ">
+        <form class="bg-white rounded-lg shadow-sm p-8" method="POST" action="/article"  enctype="multipart/form-data"">
           @csrf
           
           <!-- Image Upload Section -->
@@ -140,10 +141,10 @@
     
           <!-- Date Field -->
           <div class="mb-6">
-            <label for="post_date" class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+            <label for="postdate" class="block text-sm font-medium text-gray-700 mb-2">Date</label>
             
             
-            <input type="date" id="post_date" name="post_date"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+            <input type="date" id="postdate" name="postdate"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
             {{-- @error('post_date')
               <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror --}}
@@ -155,8 +156,8 @@
             <select id="category" name="category" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
               <option value="">Select a category</option>
               <option >Marketing</option>
-              <option >Development</option>
-              <option >Design</option>
+              <option >News</option>
+              <option >Sports</option>
               <option >Business</option>
               <option >Technology</option>
             </select>
@@ -189,16 +190,16 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="author_name" class="block text-sm font-medium text-gray-700 mb-2">Author Name</label>
-                <input type="text" id="author_name" name="author_name" placeholder="Enter author name"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+                <label for="authorname" class="block text-sm font-medium text-gray-700 mb-2">Author Name</label>
+                <input type="text" id="authorname" name="authorname" placeholder="Enter author name"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
                 {{-- @error('author_name')
                   <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror --}}
               </div>
               
               <div>
-                <label for="author_title" class="block text-sm font-medium text-gray-700 mb-2">Author Title</label>
-                <input type="text" id="author_title" name="author_title" placeholder="E.g. Co-Founder / CTO"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+                <label for="authortitle" class="block text-sm font-medium text-gray-700 mb-2">Author Title</label>
+                <input type="text" id="authortitle" name="authortitle" placeholder="E.g. Co-Founder / CTO"  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
                 {{-- @error('author_title')
                   <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror --}}

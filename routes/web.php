@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\AuthenticateUser;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('pages.home');
-});
 
 Route::get('/login', function () {
     return view('pages.auth.login');
@@ -20,7 +21,18 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 
+Route::middleware([AuthenticateUser::class])->group(function(){
 
-Route::get('/article',function(){
-    return view('pages.articles.create');
+    Route::get('/', function () {
+        return view('pages.home');
+    });
+   
+    Route::get('/article',[ArticleController::class,'create']);
+    Route::post('/article',[ArticleController::class,'store']);
+
+    Route::get('/author',[AuthorController::class,'index']);
+    Route::get('/category',[CategoryController::class,'index']);
 });
+
+
+
