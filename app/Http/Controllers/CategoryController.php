@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Article::all()->pluck('category');
+        $categories = Article::select('category')->distinct()->pluck('category');
         return view('pages.category',['categories'=>$categories]);
     }
 
@@ -35,9 +35,13 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $category)
     {
-        //
+        
+        $categoryArticles=Article::where('category',$category)->get();
+        // dd($categoryArticles);
+
+        return view('pages.filtercategory',['categoryArticles'=>$categoryArticles,'category'=>$category]);
     }
 
     /**

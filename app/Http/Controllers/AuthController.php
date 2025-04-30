@@ -36,6 +36,8 @@ class AuthController extends Controller
         return view('pages.auth.register');
     }
 
+    
+
     public function register(Request $request)
     {
         $request->validate([

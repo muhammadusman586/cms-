@@ -23,15 +23,21 @@ Route::controller(AuthController::class)->group(function(){
 
 Route::middleware([AuthenticateUser::class])->group(function(){
 
-    Route::get('/', function () {
-        return view('pages.home');
-    });
+    Route::get('/', [ArticleController::class,'index']);
    
     Route::get('/article',[ArticleController::class,'create']);
     Route::post('/article',[ArticleController::class,'store']);
+    Route::get('/article/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('/article/{article}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('/article/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
 
     Route::get('/author',[AuthorController::class,'index']);
+    Route::get('/author/{author}/article',[AuthorController::class,'show']);
+
     Route::get('/category',[CategoryController::class,'index']);
+    Route::get('/categories/{category}',[CategoryController::class,'show']);
+    
 });
 
 

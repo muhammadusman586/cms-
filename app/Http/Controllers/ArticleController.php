@@ -11,6 +11,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $articles=Article::all();
+
+        return view('pages.home',['articles'=>$articles]);
 
     }
 
@@ -57,9 +60,10 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Article $article)
     {
-        //
+
+        return view('pages.articles.edit',['articles'=>$article]);
     }
 
     /**
@@ -73,8 +77,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Article $article)
     {
-        //
+        
+    $article->delete();
+    return redirect('/author')->with('success','Article Deleted');
     }
 }

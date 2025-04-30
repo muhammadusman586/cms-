@@ -155,11 +155,11 @@
             <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category</label>
             <select id="category" name="category" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
               <option value="">Select a category</option>
-              <option >Marketing</option>
-              <option >News</option>
+              <option >Tech</option>
+              <option >Health</option>
               <option >Sports</option>
-              <option >Business</option>
-              <option >Technology</option>
+              <option >Politics</option>
+              <option >Entertainment</option>
             </select>
             {{-- @error('category')
               <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

@@ -37,9 +37,13 @@ class AuthorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $author)
     {
-        //
+        $authorArticles = Article::where('authorname', $author)->get();
+        return view('pages.authorarticle', [
+            'authorArticles' => $authorArticles,
+            'author' => $author
+        ]);
     }
 
     /**
