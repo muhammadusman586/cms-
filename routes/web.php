@@ -32,11 +32,19 @@ Route::middleware([AuthenticateUser::class])->group(function(){
     Route::delete('/article/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 
 
-    Route::get('/author',[AuthorController::class,'index']);
+    Route::get('/author',function(){
+        return view('pages.author.create');
+    });
+    // Route::get('/author',[AuthorController::class,'index']);
     Route::get('/author/{author}/article',[AuthorController::class,'show']);
 
-    Route::get('/category',[CategoryController::class,'index']);
+    Route::get('/category',function(){
+     return view('pages.category.create');
+    });
+    // Route::get('/category',[CategoryController::class,'index']);
     Route::get('/categories/{category}',[CategoryController::class,'show']);
+
+    Route::get('/article/detail/{id}', [ArticleController::class, 'articleDetail'])->name('articledetail');
     
 });
 

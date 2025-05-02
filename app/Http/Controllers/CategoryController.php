@@ -13,6 +13,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Article::select('category')->distinct()->pluck('category');
+        if(!$categories){
+            abort(404,'No Category Found');
+        }
         return view('pages.category',['categories'=>$categories]);
     }
 
@@ -40,7 +43,10 @@ class CategoryController extends Controller
         
         $categoryArticles=Article::where('category',$category)->get();
         // dd($categoryArticles);
-
+        
+        if(!$categoryArticles){
+            abort(404,'Not Found with this category Article');
+        }
         return view('pages.filtercategory',['categoryArticles'=>$categoryArticles,'category'=>$category]);
     }
 

@@ -16,9 +16,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('title');
             $table->longText('content');
-            $table->string('authorname');
-            $table->string('authortitle');
-            $table->string('category');
+            $table->foreignId('author_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->date('postdate');
 
             $table->timestamps();

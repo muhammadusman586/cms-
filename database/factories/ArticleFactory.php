@@ -17,7 +17,7 @@ class ArticleFactory extends Factory
     public function definition(): array
 {
     return [
-        'image' => 'uploads/' . fake()->image('storage/app/public/uploads', 640, 480, null, false),
+        'image' => fake()->image('storage/app/public/uploads', 640, 480, null, false),
         'postdate'    => fake()->date(),
         'title'       => fake()->sentence(),
         'content'     => fake()->paragraph(),

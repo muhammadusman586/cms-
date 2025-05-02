@@ -18,7 +18,7 @@
             @foreach ($articles as $article)
                 <article class="flex flex-col md:flex-row gap-6 bg-white rounded-lg overflow-hidden shadow-sm">
                     <div class="md:w-2/5">
-                        <img src={{ $article->image }} alt="Desk workspace with keyboard and phone"
+                        <img src={{ Storage::url($article->image) }} alt="Desk workspace with keyboard and phone"
                             class="h-64 md:h-full w-full object-cover">
                     </div>
                     <div class="md:w-3/5 p-6 flex flex-col justify-center">
@@ -31,7 +31,7 @@
                         </div>
 
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                            <a href="#" class="hover:text-rose-600 transition-colors">
+                            <a href="/article/detail/{{$article->id}}" class="hover:text-rose-600 transition-colors">
                                 {{ $article->title }}
                             </a>
                         </h3>

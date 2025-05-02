@@ -1,6 +1,6 @@
 <x-layout.app>
   <section class="py-16 px-4 max-w-4xl mx-auto">
-    <form class="bg-white rounded-lg shadow-sm p-8" method="POST" action="#" enctype="multipart/form-data">
+    <form class="bg-white rounded-lg shadow-sm p-8" method="POST" action="{{ route('articles.update', $article->id) }}" enctype="multipart/form-data">
       @csrf
       @method('PUT')
 
@@ -69,7 +69,7 @@
 
       <!-- Buttons -->
       <div class="flex justify-end space-x-4 mt-8">
-        <a href="{{ route('articles.index') }}" class="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-700 bg-white hover:bg-gray-50">
+        <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-700 bg-white hover:bg-gray-50">
           Cancel
         </a>
         <button type="submit" class="px-4 py-2 bg-rose-600 text-white rounded-md hover:bg-rose-700">

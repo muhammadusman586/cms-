@@ -12,8 +12,10 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors=Article::all()->pluck('authorname');
-        // dd($authors);
+        $authors=Article::select('authorname')->distinct()->pluck('authorname');
+        if(!$authors){
+            abort(404,'No author found');
+        }
 
         return view('pages.author',['authors'=>$authors]);
     }
@@ -40,6 +42,9 @@ class AuthorController extends Controller
     public function show(string $author)
     {
         $authorArticles = Article::where('authorname', $author)->get();
+        if(!$authorArticles){
+            abort(404,'No Article found with this author');
+        }
         return view('pages.authorarticle', [
             'authorArticles' => $authorArticles,
             'author' => $author

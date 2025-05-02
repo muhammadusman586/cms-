@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\User;
@@ -13,7 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         User::factory(15)->create();
+        User::factory(15)->create();
 
         // User::factory()->create([
         //     'firstname' => 'Test User',
@@ -21,5 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(ArticleSeeder::class);
+        // $this->call(AuthorSeeder::class);
+        // $this->call(CategorySeeder::class);
     }
 }

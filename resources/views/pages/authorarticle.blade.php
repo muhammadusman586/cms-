@@ -15,7 +15,7 @@
         @foreach ($authorArticles as $authorArticle)
         <article class="flex flex-col md:flex-row gap-6 bg-white rounded-lg overflow-hidden shadow-sm">
             <div class="md:w-2/5">
-                <img src={{ $authorArticle->image }} alt="Desk workspace with keyboard and phone"
+                <img src={{ Storage::url($authorArticle->image) }} alt={{$authorArticle->title}}
                     class="h-64 md:h-full w-full object-cover">
             </div>
             <div class="md:w-3/5 p-6 flex flex-col justify-center">
@@ -43,24 +43,25 @@
                 </div>
             </div>
         </article>
-    @endforeach
-    <div class="mt-6 flex gap-3">
+        <div class="mt-6 flex gap-3">
             
-        <a href="{{ route('articles.edit', $authorArticle->id) }}"
-            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-            Update
-        </a>
-         
-         <form action="{{ route('articles.destroy', $authorArticle->id) }}" method="POST"
-            onsubmit="return confirm('Are you sure you want to delete this article?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit"
-                class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-                Delete
-            </button>
-
-        </form> 
-    </div>
+            <a href="{{ route('articles.edit', $authorArticle->id) }}"
+                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                Update
+            </a>
+             
+             <form action="{{ route('articles.destroy', $authorArticle->id) }}" method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this article?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                    class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+                    Delete
+                </button>
+    
+            </form> 
+        </div>
+    @endforeach
+    
     
 </x-layout.app>    
