@@ -10,10 +10,10 @@
     <a href="/article" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
       Create Article
     </a>
-    <a href="/author" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+    <a href="/author/create" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
       Create Author
     </a>
-    <a href="/category" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+    <a href="/category/create" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
       Create Category
     </a>   
   </nav>

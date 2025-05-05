@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Author;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,14 +13,17 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $articles = Article::all();
-        if(!$articles){
-            abort(404,'No Article Found');
-        }
-        return view('pages.home', ['articles' => $articles]);
+{
+    $articles = Article::with('Author', 'Category')
+                       ->orderBy('created_at', 'desc')
+                       ->paginate(5);
 
+    if ($articles->isEmpty()) {
+        abort(404, 'No Article Found');
     }
+
+    return view('pages.home', ['articles' => $articles]);
+}
 
     public function articleDetail($id)
     {
@@ -26,14 +31,19 @@ class ArticleController extends Controller
         if(!$article){
             abort(404,'No article found with this id');
         }
-        return view('pages.articledetail', ['article' => $article]);
+        return view('pages.article.articledetail', ['article' => $article]);
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('pages.articles.create');
+        $authors=Author::all();
+        $categories=Category::all();
+        return view('pages.articles.create', [
+            'authors' => $authors,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -41,24 +51,26 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        //  dd($request);
         $data = $request->validate([
-            'image'       => 'nullable|image|mimes:png,jpg',
+            'image'       => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             'postdate'    => 'required|date',
             'title'       => 'required|string',
             'content'     => 'required|string',
-            'authorname'  => 'required|string',
-            'authortitle' => 'required|string',
-            'category'    => 'required|string',
+            'author_id'   => 'required|exists:authors,id',
+            'category_id' => 'required|exists:categories,id',
         ]);
-
+        // dd($data);
+    
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('uploads', 'public');
+            $data['image'] = $request->file('image')->store('public/images');
         }
-
+    
         Article::create($data);
-
-        return redirect('/')->with('success', "Article Created Successfully");
+    
+        return redirect('/')->with('success', 'Article created successfully.');
     }
+    
 
     /**
      * Display the specified resource.
@@ -87,17 +99,17 @@ class ArticleController extends Controller
             'image'       => 'sometimes|nullable|image|mimes:png,jpg',
             'postdate'    => 'sometimes|required|date',
             'title'       => 'sometimes|required|string',
-            'content'     => 'sometimes|required|string',
-            'authorname'  => 'sometimes|required|string',
-            'authortitle' => 'sometimes|required|string',
-            'category'    => 'sometimes|required|string',
+            'author_id'    => 'sometimes|required|exists:authors,id',
+            'category_id'    => 'sometimes|required|exists:categories,id',
+            
+            
         ]);
         if ($request->hasFile('image')) {
             if ($article->image) {
                 Storage::delete($article->image);
             }
-            $path               = $request->file('image')->store('public/images');
-            $validated['image'] = $article;
+            $path= $request->file('image')->store('public/images');
+            $validated['image'] = $path;
 
         }
 

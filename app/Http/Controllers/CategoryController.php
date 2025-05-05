@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $categories = Article::select('category')->distinct()->pluck('category');
-        if(!$categories){
-            abort(404,'No Category Found');
+        $categories = Category::select('category')->distinct()->pluck('category');
+        if (! $categories) {
+            abort(404, 'No Category found');
         }
-        return view('pages.category',['categories'=>$categories]);
+
+        return view('pages.category.category', ['categories' => $categories]);
     }
 
     /**
@@ -24,7 +23,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories=Category::all();
+        return view('pages.category.create',['categories'=>$categories]);
     }
 
     /**
@@ -32,7 +32,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'category'=> 'required|string|unique:categories,category',
+           
+        ]);
+
+
+        Category::create($data);
+
+        return redirect('/')->with('success', 'Category created Successfully');
+
     }
 
     /**
@@ -40,37 +49,47 @@ class CategoryController extends Controller
      */
     public function show(string $category)
     {
-        
-        $categoryArticles=Article::where('category',$category)->get();
-        // dd($categoryArticles);
-        
-        if(!$categoryArticles){
-            abort(404,'Not Found with this category Article');
-        }
-        return view('pages.filtercategory',['categoryArticles'=>$categoryArticles,'category'=>$category]);
+        // $authorArticles = Article::where('name', $author)->get();
+        // if (! $authorArticles) {
+        //     abort(404, 'No Article found with this author');
+        // }
+        // return view('pages.authorarticle', [
+        //     'authorArticles' => $authorArticles,
+        //     'author'         => $author,
+        // ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return view('pages.category.edit',['category'=>$category]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validate([
+            'category'        => 'sometimes|required|string',
+            
+        ]);
+
+        
+
+        Category::create($data);
+
+        return redirect('/')->with('success', 'Category created Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect('/')->with('success', 'Category Deleted');
     }
 }

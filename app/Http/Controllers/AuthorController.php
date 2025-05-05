@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AuthorController extends Controller
 {
@@ -12,12 +13,12 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors=Article::select('authorname')->distinct()->pluck('authorname');
-        if(!$authors){
-            abort(404,'No author found');
+        $authors = Author::select('name')->distinct()->pluck('name');
+        if (! $authors) {
+            abort(404, 'No author found');
         }
 
-        return view('pages.author',['authors'=>$authors]);
+        return view('pages.author.author', ['authors' => $authors]);
     }
 
     /**
@@ -25,7 +26,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.author.create');
     }
 
     /**
@@ -33,7 +34,20 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name'        => 'required|string',
+            'authortitle' => 'required|string',
+            'authorimage' => 'nullable|image|mimes:jpg,png',
+        ]);
+
+        if ($request->hasFile('authorimage')) {
+            $data['authorimage'] = $request->file('authorimage')->store('uploads', 'public');
+        }
+
+        Author::create($data);
+
+        return redirect('/')->with('success', 'Author created Successfully');
+
     }
 
     /**
@@ -41,37 +55,55 @@ class AuthorController extends Controller
      */
     public function show(string $author)
     {
-        $authorArticles = Article::where('authorname', $author)->get();
-        if(!$authorArticles){
-            abort(404,'No Article found with this author');
+        $authorArticles = Article::where('name', $author)->get();
+        if (! $authorArticles) {
+            abort(404, 'No Article found with this author');
         }
         return view('pages.authorarticle', [
             'authorArticles' => $authorArticles,
-            'author' => $author
+            'author'         => $author,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Author $author)
     {
-        //
+        return view('pages.author.edit',['author'=>$author]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Author $author)
     {
-        //
+        $data = $request->validate([
+            'name'        => 'sometimes|required|string',
+            'authortitle' => 'sometimes|required|string',
+            'authorimage' => 'sometimes|nullable|image|mimes:jpg,png',
+        ]);
+
+        if ($request->hasFile('authorimage')) {
+            if ($author->authorimage) {
+           Storage::delete($author->authorimage);
+            }
+            $path= $request->file('authorimage')->store('public/images');
+            $validated['authorimage'] = $author;
+        }
+
+        Author::create($data);
+
+        return redirect('/')->with('success', 'Author created Successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Author $author)
     {
-        //
+        $author->delete();
+
+        return redirect('/')->with('success', 'Article Deleted');
     }
 }

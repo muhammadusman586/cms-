@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Author;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,16 +17,16 @@ class ArticleFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-{
-    return [
-        'image' => fake()->image('storage/app/public/uploads', 640, 480, null, false),
-        'postdate'    => fake()->date(),
-        'title'       => fake()->sentence(),
-        'content'     => fake()->paragraph(),
-        'authorname'  => fake()->name(),
-        'authortitle' => fake()->jobTitle(),
-        'category'    => fake()->randomElement(['Tech', 'Health', 'Sports', 'Politics', 'Entertainment']),
-    ];
-}
+    {
+        return [
+            'image'        => fake()->image('storage/app/public/uploads', 640, 480, null, false),
+            'postdate'     => fake()->date(),
+            'title'        => fake()->sentence(),
+            'content'      => fake()->paragraph(),
+            'author_id'    => Author::factory(),
+            'category_id'  =>  Category::factory(),
+        ];
+    }
+
 
 }

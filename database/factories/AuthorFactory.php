@@ -19,6 +19,7 @@ class AuthorFactory extends Factory
         return [
             'name'=>fake()->name(),
             'authortitle'=>fake()->jobTitle(),
+            'authorimage'=>fake()->image('storage/app/public/uploads', 640, 480, null, false)
         ];
     }
 }
