@@ -21,23 +21,24 @@
             </div>
         </form>
     </section>
-
     <div class="py-16 px-4 max-w-4xl mx-auto">
         <div class="bg-white rounded-lg shadow-sm p-8" method="POST" action="/article" enctype="multipart/form-data"">
-
-
+    
+    
             <div class="flex justify-start space-x-4 mt-8">
-                @foreach ($categories as $category)
-                    <a href="{{ route('category.edit', $category->id) }}"
+                @foreach ($categories as $categorie)
+                    <a href="{{ route('category.edit', $categorie->id) }}"
                         class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
-                        {{ $category->category }}
+                        {{ $categorie->category }}
                     </a>
                 @endforeach
-
-
+    
+    
             </div>
         </div>
     </div>
+  
 
+    
 
 </x-layout.app>

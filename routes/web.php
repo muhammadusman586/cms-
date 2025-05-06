@@ -25,17 +25,20 @@ Route::middleware([AuthenticateUser::class])->group(function () {
 
     //Article Controller
     Route::get('/', [ArticleController::class, 'index']);
-    Route::controller(AuthorController::class)->prefix('article')->group(function () {
-        Route::get('/', [ArticleController::class, 'create']);
-        Route::post('/', [ArticleController::class, 'store']);
-        Route::get('{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
-        Route::put('{article}', [ArticleController::class, 'update'])->name('articles.update');
-        Route::delete('{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
-        Route::get('/detail/{id}', [ArticleController::class, 'articleDetail'])->name('articledetail');
+    Route::get('/article/detail/{id}', [ArticleController::class, 'articleDetail'])->name('articles.detail');
+   
+    Route::controller(ArticleController::class)->prefix('article')->group(function () {
+        Route::get('/',  'create');
+        Route::post('/',  'store');
+        Route::get('{article}/edit',  'edit')->name('articles.edit');
+        Route::put('{article}',  'update')->name('articles.update');
+        Route::delete('{article}',  'destroy')->name('articles.destroy');
+        // Route::get('/detail/{id}',  'articleDetail');
 
     });
 
     // Author Controller Routes
+    
     Route::controller(AuthorController::class)->prefix('author')->group(function () {
         Route::get('/', 'index');
         Route::get('/create', 'create');
@@ -52,10 +55,11 @@ Route::middleware([AuthenticateUser::class])->group(function () {
         Route::get('/', 'index');
         Route::get('/create', 'create');
         Route::post('/', 'store');
+           
+        Route::get('/{category}/articles', 'show');
+           
         Route::get('/{category}/edit', 'edit')->name('category.edit');
         Route::put('/{category}', 'update')->name('category.update');
         Route::delete('/{category}', 'destroy')->name('category.destroy');
-        
-        Route::get('/{category}', [CategoryController::class, 'show']);
     });
 });

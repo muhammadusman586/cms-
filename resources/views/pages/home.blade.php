@@ -11,9 +11,9 @@
                 Category
             </a>
         </div>
-
+       
         <div class="flex flex-col gap-8">
-            @foreach ($articles as $article)
+            @forelse ($articles as $article)
                 <article class="flex flex-col md:flex-row gap-6 bg-white rounded-lg overflow-hidden shadow-sm">
                     <div class="md:w-2/5">
                         <img src="{{ Storage::url($article->image) }}" alt="Article Image"
@@ -49,7 +49,9 @@
                         </div>
                     </div>
                 </article>
-            @endforeach
+                @empty
+                <p class="text-gray-600 text-center">No articles Present</p>
+            @endforelse
         </div>
 
        

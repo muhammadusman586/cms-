@@ -18,7 +18,7 @@
 
         <div class="mb-4 text-gray-500 text-sm">
             <span>{{ $article->postdate }}</span> • 
-            <span>{{ $article->category }}</span>
+            <span>{{ $article->category->category }}</span>
         </div>
 
         <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ $article->title }}</h1>
@@ -28,8 +28,8 @@
         </div>
 
         <div class="border-t pt-4">
-            <p class="text-lg font-medium text-gray-900">{{ $article->authorname }}</p>
-            <p class="text-sm text-gray-500">{{ $article->authortitle }}</p>
+            <p class="text-lg font-medium text-gray-900">{{ $article->author->name }}</p>
+            <p class="text-sm text-gray-500">{{ $article->author->authortitle }}</p>
         </div>
     </section>
 </x-layout.app>

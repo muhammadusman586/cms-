@@ -15,8 +15,8 @@
         <ul class="space-y-2">
             @foreach ($authors as $author)
                 <li>
-                    <a href="/author/{{$author}}/article" class="text-rose-600 hover:underline hover:text-rose-600 font-medium">
-                        {{ $author }}
+                    <a href="/author/{{$author->id}}/article" class="text-rose-600 hover:underline hover:text-rose-600 font-medium">
+                        {{ $author->name }}
                     </a>
                 </li>
             @endforeach

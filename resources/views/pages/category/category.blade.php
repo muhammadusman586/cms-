@@ -14,8 +14,8 @@
       <ul class="space-y-2">
             @foreach ($categories as $categorie)
                 <li>
-                    <a href="/categories/{{$categorie}}" class="text-rose-600 hover:underline hover:text-rose-600 font-medium">
-                        {{ $categorie }}
+                    <a href="/category/{{$categorie->id}}/articles" class="text-rose-600 hover:underline hover:text-rose-600 font-medium">
+                        {{ $categorie->category }}
                     </a>
                 </li>
             @endforeach

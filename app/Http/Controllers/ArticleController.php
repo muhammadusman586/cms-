@@ -25,13 +25,16 @@ class ArticleController extends Controller
     return view('pages.home', ['articles' => $articles]);
 }
 
+   
+
     public function articleDetail($id)
     {
-        $article = Article::findOrFail($id); 
+        //  dd($id);
+        $article = Article::with('author','category')->findOrFail($id); 
         if(!$article){
             abort(404,'No article found with this id');
         }
-        return view('pages.article.articledetail', ['article' => $article]);
+        return view('pages.articles.articledetail', ['article' => $article]);
     }
     /**
      * Show the form for creating a new resource.
@@ -86,7 +89,13 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
 
-        return view('pages.articles.edit', ['article' => $article]);
+        $authors=Author::all();
+        $categories=Category::all();
+        return view('pages.articles.edit', [
+            'article' => $article,
+            'authors' => $authors,
+            'categories' => $categories
+        ]);
     }
 
     /**

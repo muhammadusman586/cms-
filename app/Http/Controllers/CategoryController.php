@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::select('category')->distinct()->pluck('category');
+        $categories = Category::all();
         if (! $categories) {
             abort(404, 'No Category found');
         }
@@ -47,16 +47,18 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $category)
+    public function show(Category $category)
     {
-        // $authorArticles = Article::where('name', $author)->get();
-        // if (! $authorArticles) {
-        //     abort(404, 'No Article found with this author');
-        // }
-        // return view('pages.authorarticle', [
-        //     'authorArticles' => $authorArticles,
-        //     'author'         => $author,
-        // ]);
+        $categoryWiseArticles=$category->articles;
+        // dd($categoryWiseArticles);
+      
+         if (! $categoryWiseArticles) {
+             abort(404, 'No Article found with this author');
+         }
+         return view('pages.category.categoryWiseArticles', [
+            'categoryWiseArticles' => $categoryWiseArticles,
+           
+        ]);
     }
 
     /**
@@ -74,14 +76,10 @@ class CategoryController extends Controller
     {
         $data = $request->validate([
             'category'        => 'sometimes|required|string',
-            
+  
         ]);
-
-        
-
-        Category::create($data);
-
-        return redirect('/')->with('success', 'Category created Successfully');
+     $category->update($data);
+     return redirect('/')->with('success', 'Category created Successfully');
     }
 
     /**

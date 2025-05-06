@@ -30,14 +30,18 @@
 
       <!-- Category -->
       <div class="mb-6">
-        <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category</label>
-        <select id="category" name="category" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-rose-500 focus:border-rose-500">
-          <option value="">Select a category</option>
-          @foreach(['Tech', 'Health', 'Sports', 'Politics', 'Entertainment'] as $cat)
-            <option value="{{ $cat }}" {{ $article->category == $cat ? 'selected' : '' }}>{{ $cat }}</option>
-          @endforeach
+        <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+        <select id="category_id" name="category_id"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+            <option value="">Select a category</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->category }}</option>
+            @endforeach
         </select>
-      </div>
+        @error('category_id')
+        <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+    @enderror
+    </div>
 
       <!-- Title -->
       <div class="mb-6">
@@ -52,20 +56,19 @@
       </div>
 
       <!-- Author Info -->
-      <div class="mb-6 border-t pt-6">
-        <h3 class="text-lg font-medium text-gray-900 mb-4">Author Information</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label for="authorname" class="block text-sm font-medium text-gray-700 mb-2">Author Name</label>
-            <input type="text" id="authorname" name="authorname" value="{{ $article->authorname }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-rose-500 focus:border-rose-500">
-          </div>
-
-          <div>
-            <label for="authortitle" class="block text-sm font-medium text-gray-700 mb-2">Author Title</label>
-            <input type="text" id="authortitle" name="authortitle" value="{{ $article->authortitle }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-rose-500 focus:border-rose-500">
-          </div>
-        </div>
-      </div>
+      <div class="mb-6">
+        <label for="author_id" class="block text-sm font-medium text-gray-700 mb-2">Author</label>
+        <select id="author_id" name="author_id"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+            <option value="">Select an author</option>
+            @foreach ($authors as $author)
+                <option value="{{ $author->id }}">{{ $author->name }}</option>
+            @endforeach
+        </select>
+        @error('author_id')
+        <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+    @enderror
+    </div>
 
       <!-- Buttons -->
       <div class="flex justify-end space-x-4 mt-8">

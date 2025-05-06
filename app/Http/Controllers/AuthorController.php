@@ -13,7 +13,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::select('name')->distinct()->pluck('name');
+        // $authors = Author::select('name')->distinct()->pluck('name');
+        $authors=Author::all();
         if (! $authors) {
             abort(404, 'No author found');
         }
@@ -21,12 +22,12 @@ class AuthorController extends Controller
         return view('pages.author.author', ['authors' => $authors]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
+   
     public function create()
     {
-        return view('pages.author.create');
+        $authors=Author::all();
+        return view('pages.author.create',['authors'=>$authors]);
     }
 
     /**
@@ -53,15 +54,16 @@ class AuthorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $author)
+    public function show(Author $author)
     {
-        $authorArticles = Article::where('name', $author)->get();
+        $authorArticles = $author->articles;
+        // dd($authorArticles);
         if (! $authorArticles) {
             abort(404, 'No Article found with this author');
         }
-        return view('pages.authorarticle', [
+        return view('pages.author.authorarticle', [
             'authorArticles' => $authorArticles,
-            'author'         => $author,
+            
         ]);
     }
 
@@ -78,7 +80,7 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'name'        => 'sometimes|required|string',
             'authortitle' => 'sometimes|required|string',
             'authorimage' => 'sometimes|nullable|image|mimes:jpg,png',
@@ -89,10 +91,10 @@ class AuthorController extends Controller
            Storage::delete($author->authorimage);
             }
             $path= $request->file('authorimage')->store('public/images');
-            $validated['authorimage'] = $author;
+            $validated['authorimage'] = $path;
         }
 
-        Author::create($data);
+        $author->update($validated);
 
         return redirect('/')->with('success', 'Author created Successfully');
     }
