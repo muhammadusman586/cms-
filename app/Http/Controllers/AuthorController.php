@@ -42,7 +42,8 @@ class AuthorController extends Controller
         ]);
 
         if ($request->hasFile('authorimage')) {
-            $data['authorimage'] = $request->file('authorimage')->store('uploads', 'public');
+           
+            $data['authorimage'] = $request->file('authorimage')->store('images','public');
         }
 
         Author::create($data);
@@ -90,7 +91,7 @@ class AuthorController extends Controller
             if ($author->authorimage) {
            Storage::delete($author->authorimage);
             }
-            $path= $request->file('authorimage')->store('public/images');
+            $path= $request->file('authorimage')->store('images','public');;
             $validated['authorimage'] = $path;
         }
 

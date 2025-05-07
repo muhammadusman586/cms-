@@ -57,7 +57,7 @@ class AuthController extends Controller
             ]
 
         );
-        if (! $user) {
+        if (!$user) {
             return back()->with('error', 'Something went wrong.');
         }
 

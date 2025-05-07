@@ -7,6 +7,14 @@
   </div>
 
   <nav class="mt-6 space-y-2">
+    <a href="/author"
+    class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+     Authors
+   </a>
+   <a href="/category"
+       class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+       Categorys
+   </a>
     <a href="/article" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
       Create Article
     </a>

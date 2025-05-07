@@ -66,7 +66,7 @@ class ArticleController extends Controller
         // dd($data);
     
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('public/images');
+            $data['image'] = $request->file('image')->store('images', 'public');
         }
     
         Article::create($data);
@@ -117,7 +117,7 @@ class ArticleController extends Controller
             if ($article->image) {
                 Storage::delete($article->image);
             }
-            $path= $request->file('image')->store('public/images');
+            $path=$request->file('image')->store('images', 'public');
             $validated['image'] = $path;
 
         }

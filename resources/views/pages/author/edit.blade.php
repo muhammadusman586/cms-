@@ -27,7 +27,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">Author Avatar</label>
           <div class="flex items-center">
             <div class="h-12 w-12 rounded-full bg-gray-200 overflow-hidden mr-4">
-              <img id="avatar-preview" src="{{$author->authorimage}}" alt="Author avatar" class="h-full w-full object-cover">
+              <img id="avatar-preview" src="{{Storage::url($author->authorimage)}}" alt="Author avatar" class="h-full w-full object-cover">
             </div>
             <label class="cursor-pointer bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
               Change Avatar
