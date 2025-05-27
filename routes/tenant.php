@@ -1,62 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TenantController;
 use App\Http\Middleware\AuthenticateUser;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
+use App\Http\Middleware\CheckTenantActive;
+use Illuminate\Support\Facades\Route;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
-Route::get('/login', function () {
-    return view('pages.auth.login');
-});
+/*
+|--------------------------------------------------------------------------
+| Tenant Routes
+|--------------------------------------------------------------------------
+|
+| Here you can register the tenant routes for your application.
+| These routes are loaded by the TenantRouteServiceProvider.
+|
+| Feel free to customize them however you want. Good luck!
+|
+*/
 
+Route::middleware([
+    'web',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
 
-Route::get('/auto-login', function (Request $request) {
-    if (! $request->hasValidSignature()) {
-        abort(403, 'Invalid or expired link.');
-    }
+])->group(function () {
 
-    $user = User::where('email', $request->email)->first();
-
-    if (! $user) {
-        abort(404);
-    }
-
-    Auth::login($user);
-
-    return redirect('/dashboard'); // or any home page
-})->name('tenant.auto.login');
-
-
-Route::get('/redirect-to-tenant', [TenantController::class, 'redirectToTenant'])->name('redirect.to.tenant');
-
-
-
-
-// Route::get('/sso-login', function (Request $request) {
-//     if (! URL::hasValidSignature($request)) {
-//         abort(403, 'Invalid or expired link.');
-//     }
-
-//     $user = User::where('email', $request->email)->first();
-
-//     if (! $user) {
-//         abort(404, 'User not found.');
-//     }
-
-//     Auth::login($user);
-
-//     return redirect('/'); // or any tenant-specific page
-// })->name('tenant.sso');
-
-//AuthController
-
-Route::controller(AuthController::class)->group(function () {
+    Route::get('/login', function () {
+       return view('pages.auth.login');
+    });
+    Route::controller(AuthController::class)->group(function () {
     Route::get('/signup', 'showRegisterForm')->name('signup');
     Route::post('/signup', 'register');
     Route::get('/login', 'showLoginForm');
@@ -64,6 +42,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout');
 });
 
+Route::get('/auto-login', [AuthController::class, 'autoLogin'])->name('tenant.auto-login');
 Route::middleware([AuthenticateUser::class])->group(function () {
 
     //Article Controller
@@ -106,8 +85,11 @@ Route::middleware([AuthenticateUser::class])->group(function () {
         Route::delete('/{category}', 'destroy')->name('category.destroy');
     });
 
-   
-    Route::get('/tenant',[TenantController::class,'create']);
-    Route::post('/tenant',[TenantController::class,'store']);
+    // Route::get('/', function () {
+
+    //     //  dd(\App\Models\User::all());
+    //     return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+    // });
+});
 
 });

@@ -38,6 +38,13 @@
                             in</button>
                     </div>
                 </form>
+
+                 <p class="mt-10 text-center text-sm/6 text-gray-500">
+                    Login As a Tenant
+                    <a href="" class="font-semibold text-indigo-600 hover:text-indigo-500">
+                     Login Tenant
+                    </a>
+                </p>
     
                 <p class="mt-10 text-center text-sm/6 text-gray-500">
                     Not have a Account?

@@ -18,9 +18,9 @@ class ArticleController extends Controller
                        ->orderBy('created_at', 'desc')
                        ->paginate(5);
 
-    if ($articles->isEmpty()) {
-        abort(404, 'No Article Found');
-    }
+    // if ($articles->isEmpty()) {
+    //     abort(404, 'No Article Found');
+    // }
 
     return view('pages.home', ['articles' => $articles]);
 }

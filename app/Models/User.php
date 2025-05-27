@@ -1,11 +1,13 @@
 <?php
-
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Schema;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class User extends Authenticatable
 {
@@ -18,8 +20,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'firstname',
-        'lastname',
+        'name',
+        // 'lastname',
         'email',
         'password',
     ];
@@ -43,7 +45,35 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
+
+//     public static function boot()
+//     {
+//         parent::boot();
+//         static::creating(function ($model) {
+//             if (tenancy()->tenant && Schema::hasColumn($model->getTable(), 'tenant_id')) {
+//                 $model->tenant_id = tenancy()->tenant->id;
+//             }
+//         });
+//     }
+
+//     protected static function booted()
+//     {
+//         // Apply tenant scope automatically for all queries
+//         static::addGlobalScope('tenant_id', function (Builder $builder) {
+//             // Check if tenant_id exists in the table
+//             if (Schema::hasColumn((new static )->getTable(), 'tenant_id')) {
+//                 if ($tenant = tenancy()->tenant) {
+//                     $builder->where('tenant_id', $tenant->id);
+//                 }
+//             }
+//         });
+//     }
+
+//     public function tenants()
+// {
+//     return $this->hasMany(Tenant::class, 'user_id', 'id');
+// }
 }

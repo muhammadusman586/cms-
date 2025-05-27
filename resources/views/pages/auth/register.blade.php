@@ -11,20 +11,20 @@
                 <form class="space-y-6" action="/signup" method="POST">
                      @csrf
                     <div>
-                        <label for="firstname" class="block text-sm/6 font-medium text-gray-900">First Name</label>
+                        <label for="name" class="block text-sm/6 font-medium text-gray-900"> Name</label>
                         <div class="mt-2">
-                            <input type="text" name="firstname" id="firstname" autocomplete="firstname" required
+                            <input type="text" name="name" id="name" autocomplete="name" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                         </div>
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label for="lastname" class="block text-sm/6 font-medium text-gray-900">Last Name</label>
                         <div class="mt-2">
                             <input type="text" name="lastname" id="lastname" autocomplete="lastname" required
                                 class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                         </div>
-                    </div>
+                    </div> --}}
 
 
                     <div>
@@ -53,6 +53,13 @@
                             </button>
                     </div>
                 </form>
+
+                 <p class="mt-10 text-center text-sm/6 text-gray-500">
+                    Login As a Tenant
+                    <a href="" class="font-semibold text-indigo-600 hover:text-indigo-500">
+                     Login Tenant
+                    </a>
+                </p>
     
                 <p class="mt-10 text-center text-sm/6 text-gray-500">
                      Have a Account?
