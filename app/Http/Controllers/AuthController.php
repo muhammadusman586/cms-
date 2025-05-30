@@ -5,6 +5,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -84,6 +86,12 @@ class AuthController extends Controller
         if (! $user) {
             return back()->with('error', 'Something went wrong.');
         }
+
+        // $role=Role::findById(1);
+        // $permissions=Permission::all();
+        // $role->givePermissionTo($permissions);
+        
+        $user->assignRole('Super Admin');
 
         Auth::login($user);
 

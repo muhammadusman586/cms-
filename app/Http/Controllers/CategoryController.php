@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        return redirect('/')->with('success', 'Category created Successfully');
+        return redirect('/category/create')->with('success', 'Category created Successfully');
 
     }
 

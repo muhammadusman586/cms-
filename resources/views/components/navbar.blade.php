@@ -8,29 +8,34 @@
         </a>
     </div>
 
-  <nav class="mt-6 space-y-2">
-    @if (!tenant())
+    <nav class="mt-6 space-y-2">
+     @auth
+    @if (auth()->user()->hasRole('Super Admin'))
         <a href="/tenant" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
             Create Tenant
         </a>
-    @endif
 
-    <a href="/author" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
-        Authors
-    </a>
-    <a href="/category" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
-        Categories
-    </a>
-    <a href="/article" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
-        Create Article
-    </a>
-    <a href="/author/create" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
-        Create Author
-    </a>
-    <a href="/category/create" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
-        Create Category
-    </a>
-</nav>
+        <a href="/author" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+            Authors
+        </a>
+        <a href="/category" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+            Categories
+        </a>
+        <a href="/article" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+            Create Article
+        </a>
+        <a href="/author/create" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+            Create Author
+        </a>
+        <a href="/category/create" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+            Create Category
+        </a>
+
+          <a href="/contact-us" class="block px-6 py-2 text-gray-900 font-semibold hover:bg-gray-100 rounded">
+            Contact Us
+        </a>
+    @endif
+@endauth
 
 
     <div class="mt-10 border-t pt-4 px-6">

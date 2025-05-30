@@ -48,7 +48,7 @@ class AuthorController extends Controller
 
         Author::create($data);
 
-        return redirect('/')->with('success', 'Author created Successfully');
+        return redirect('/author/create')->with('success', 'Author created Successfully');
 
     }
 
